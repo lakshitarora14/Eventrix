@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #272829;
+  --primary: #262626;
+  --secondary: #f5f6f7;
+  --foreground: #f5f6f7;
+  --highlight: #b490ef;
+  --work: #bfb0fe;
+  --personal: #87ceeb;
+  --education: #a5eebe;
+  --health: #ffb6c1;
+  --misc: #ffd700;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: black;
+    --primary: #262626;
+    --secondary: #f5f6f7;
+    --foreground: #f5f6f7;
+    --light-grey-bg: #e5e7e8;
+    --highlight: #b490ef;
+    --work: #bfb0fe;
+    --personal: #b7d9fe;
+    --education: #a5eebe;
+    --health: #f1a7d3;
+    --misc: #f9d182;
+  }
+}
+
+@layer components {
+  .bg-glass-effect {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 1rem;
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(0.4rem);
+    -webkit-backdrop-filter: blur(0.4rem);
+  }
+  .bg-glass-effect-black {
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 1rem;
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(0.4rem);
+    -webkit-backdrop-filter: blur(0.4rem);
+  }
+  .grey-btn {
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: outfit, Arial, Helvetica, sans-serif;
+}
