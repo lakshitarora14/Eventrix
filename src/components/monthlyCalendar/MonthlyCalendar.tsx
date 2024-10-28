@@ -1,6 +1,6 @@
 'use client'
 
-import clsx from 'clsx'
+import { memo } from 'react'
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -9,20 +9,31 @@ import {
   addDays,
   format,
   getDay,
-  isToday,
 } from 'date-fns'
 import { useMemo, useState, useEffect } from 'react'
-import { WEEKDAYS } from '../../data/constants'
 import { useEventStore } from '../../stores/EventStore'
 import AddNewEventMobileView from '../AddNewEventMobileView'
-import EventPill from '../EventPill'
-import AllEventsOnDay from '../AllEventsOnDay'
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover'
 import { Event } from '../../../global-types'
-import EventPillMobile from '../EventPillMobile'
+import WeekdayHeader from './WeekdayHeader'
+import CalendarDay from './CalendarDay'
 
-interface EventCalendarProps {
+type EventCalendarProps = {
   currentDate: Date
+}
+
+const convertTo24Hour = (timeStr: string) => {
+  const [time, period] = timeStr.split(' ')
+  const [hours, minutes] = time.split(':').map(Number)
+
+  if (period === 'PM' && hours !== 12) {
+    return `${hours + 12}:${minutes.toString().padStart(2, '0')}`
+  }
+  if (period === 'AM' && hours === 12) {
+    return `00:${minutes.toString().padStart(2, '0')}`
+  }
+  return `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}`
 }
 
 const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
@@ -58,22 +69,7 @@ const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
     return [...leadingDays, ...daysInMonth, ...trailingDays]
   }, [firstDayOfMonth, lastDayOfMonth])
 
-  const convertTo24Hour = (timeStr: string) => {
-    const [time, period] = timeStr.split(' ')
-    const [hours, minutes] = time.split(':').map(Number)
-
-    if (period === 'PM' && hours !== 12) {
-      return `${hours + 12}:${minutes.toString().padStart(2, '0')}`
-    }
-    if (period === 'AM' && hours === 12) {
-      return `00:${minutes.toString().padStart(2, '0')}`
-    }
-    return `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}`
-  }
-
-  const dayWiseEvents: Record<string, Event[]> = useMemo(() => {
+  const dayWiseEvents = useMemo(() => {
     if (!isClient) return {}
 
     return Object.keys(eventsByDate).reduce((acc, dateKey) => {
@@ -86,87 +82,24 @@ const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
           return timeA.localeCompare(timeB)
         })
       return { ...acc, [dateKey]: sortedEvents }
-    }, {})
+    }, {} as Record<string, Event[]>)
   }, [eventsById, eventsByDate, isClient])
 
   return (
     <div className='md:px-4 py-2'>
-      <div className='grid grid-cols-7 gap-1 px-4 h-[6vh]'>
-        {WEEKDAYS.map((day) => (
-          <div
-            key={day}
-            className='flex items-center justify-center h-10 bg-grey-bg text-center text-sm sm:text-base'
-          >
-            {day}
-          </div>
-        ))}
-      </div>
-
+      <WeekdayHeader />
       <div className='grid grid-cols-7 grid-rows-5 gap-1 p-4 h-[73vh] md:h-[79vh]'>
-        {calendarDays.map((day, index) => {
+        {calendarDays.map((day) => {
           const dateKey = format(day, 'yyyy-MM-dd')
           const todaysEvents = dayWiseEvents[dateKey] || []
           const isCurrentMonth = day >= firstDayOfMonth && day <= lastDayOfMonth
-          const maxEventCountToShow = 4
-          const showMore = todaysEvents.length > maxEventCountToShow
-
           return (
-            <div
-              key={index}
-              className={clsx(
-                'border-grey-bg relative group rounded-lg border-[0.5px] p-2 text-end',
-                {
-                  'bg-white': isCurrentMonth,
-                  'bg-gray-100 border-gray-300 border-[0.5px] text-gray-400 opacity-70':
-                    !isCurrentMonth,
-                }
-              )}
-            >
-              <span
-                className={clsx(
-                  'text-xs md:text-sm inline-flex items-center justify-center h-6 w-6',
-                  {
-                    'text-foreground p-2 rounded-full bg-black/80':
-                      isToday(day),
-                    'text-neutral-500': !isToday(day),
-                  }
-                )}
-              >
-                {format(day, 'd')}
-              </span>
-              <div className='mt-2 block md:hidden space-y-1 max-h-[calc(100%-2rem)] overflow-scroll no-scrollbar'>
-                {todaysEvents
-                  .slice(0, maxEventCountToShow)
-                  .map((event: Event) => (
-                    <EventPillMobile key={event.id} event={event} />
-                  ))}
-              </div>
-              <div className='mt-2 hidden md:block space-y-1 max-h-[calc(100%-2rem)] overflow-scroll no-scrollbar'>
-                {todaysEvents
-                  .slice(0, maxEventCountToShow)
-                  .map((event: Event) => (
-                    <EventPill key={event.id} event={event} />
-                  ))}
-              </div>
-              {showMore && (
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button className='opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out text-xs absolute bottom-2 right-1/2 translate-x-1/2 bg-white px-2 py-1 rounded-full shadow-lg mt-1'>
-                      Show more
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className='w-auto p-2 bg-white rounded-md shadow-md'
-                    align='start'
-                  >
-                    <AllEventsOnDay
-                      day={format(day, 'd')}
-                      events={todaysEvents}
-                    />
-                  </PopoverContent>
-                </Popover>
-              )}
-            </div>
+            <CalendarDay
+              key={dateKey}
+              day={day}
+              events={todaysEvents}
+              isCurrentMonth={isCurrentMonth}
+            />
           )
         })}
       </div>
@@ -175,4 +108,4 @@ const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
   )
 }
 
-export default MonthlyCalendar
+export default memo(MonthlyCalendar)

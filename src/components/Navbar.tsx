@@ -7,12 +7,12 @@ const Navbar = () => {
   const goToPreviousMonth = useEventStore((state) => state.goToPreviousMonth)
   const goToNextMonth = useEventStore((state) => state.goToNextMonth)
   const setSelectedDate = useEventStore((state) => state.setSelectedDate)
-
+  const selectedDate = useEventStore((state) => state.selectedDate)
   const today = new Date()
   return (
     <nav className='h-[8vh] md:h-[10vh] pt-2 flex items-center justify-between mx-8'>
       <div className='text-2xl md:text-3xl tracking-wide'>
-        {format(today, 'MMMM, yyyy')}
+        {format(selectedDate, 'MMMM, yyyy')}
       </div>
       <div className='flex gap-4'>
         <button
