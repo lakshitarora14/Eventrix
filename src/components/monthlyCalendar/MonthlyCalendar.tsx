@@ -61,7 +61,8 @@ const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
       end: lastDayOfMonth,
     })
     const totalDays = [...leadingDays, ...daysInMonth]
-    const remainingSlots = 35 - totalDays.length
+    const totalSlots = totalDays.length > 35 ? 42 : 35
+    const remainingSlots = totalSlots - totalDays.length
     const trailingDays = Array.from({
       length: remainingSlots > 0 ? remainingSlots : 0,
     }).map((_, i) => addDays(lastDayOfMonth, i + 1))
@@ -88,7 +89,11 @@ const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
   return (
     <div className='md:px-4 py-2'>
       <WeekdayHeader />
-      <div className='grid grid-cols-7 grid-rows-5 gap-1 p-4 h-[73vh] md:h-[79vh]'>
+      <div
+        className={`grid grid-cols-7 ${
+          calendarDays.length > 35 ? 'grid-rows-6' : 'grid-rows-5'
+        } gap-1 p-4 h-[73vh] md:h-[79vh]`}
+      >
         {calendarDays.map((day) => {
           const dateKey = format(day, 'yyyy-MM-dd')
           const todaysEvents = dayWiseEvents[dateKey] || []

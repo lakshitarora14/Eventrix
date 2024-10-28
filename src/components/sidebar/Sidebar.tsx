@@ -28,7 +28,7 @@ export function SidebarWrapper() {
     <Sidebar open={sidebarIsOpen} setOpen={setSidebarIsOpen}>
       <SidebarBody>
         <div
-          className={`flex h-[10vh] mt-6 ${
+          className={`flex h-[10vh] mt-10 ${
             sidebarIsOpen ? 'flex-row justify-between' : 'flex-col'
           } items-center`}
         >
