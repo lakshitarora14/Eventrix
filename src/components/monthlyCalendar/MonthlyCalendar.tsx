@@ -58,6 +58,21 @@ const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
     return [...leadingDays, ...daysInMonth, ...trailingDays]
   }, [firstDayOfMonth, lastDayOfMonth])
 
+  const convertTo24Hour = (timeStr: string) => {
+    const [time, period] = timeStr.split(' ')
+    const [hours, minutes] = time.split(':').map(Number)
+
+    if (period === 'PM' && hours !== 12) {
+      return `${hours + 12}:${minutes.toString().padStart(2, '0')}`
+    }
+    if (period === 'AM' && hours === 12) {
+      return `00:${minutes.toString().padStart(2, '0')}`
+    }
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`
+  }
+
   const dayWiseEvents: Record<string, Event[]> = useMemo(() => {
     if (!isClient) return {}
 
@@ -65,7 +80,11 @@ const MonthlyCalendar = ({ currentDate }: EventCalendarProps) => {
       const eventIds = eventsByDate[dateKey]
       const sortedEvents = eventIds
         .map((id) => eventsById[id])
-        .sort((a, b) => a.startTime.localeCompare(b.startTime))
+        .sort((a, b) => {
+          const timeA = convertTo24Hour(a.startTime)
+          const timeB = convertTo24Hour(b.startTime)
+          return timeA.localeCompare(timeB)
+        })
       return { ...acc, [dateKey]: sortedEvents }
     }, {})
   }, [eventsById, eventsByDate, isClient])

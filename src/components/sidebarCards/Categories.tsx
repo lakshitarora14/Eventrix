@@ -35,7 +35,7 @@ const Categories = () => {
 
   return (
     <div className='flex flex-col justify-between ml-5 mt-6 p-4 mr-4 h-60 bg-glass-effect'>
-      <div>Categories</div>
+      <div>Day Deck</div>
       <div className='space-y-4'>
         {categories.map((category) => (
           <div key={category.name} className='flex items-center gap-3'>

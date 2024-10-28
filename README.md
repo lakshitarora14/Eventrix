@@ -1,3 +1,52 @@
+# Eventrix - Calendar Application
+
+## URL : https://eventrix-seven.vercel.app/
+
+## Overview
+
+Eventrix is a modern, fully responsive event calendar application that simplifies event scheduling and management. Designed to cater to all screen sizes and mobile devices, Eventrix offers a seamless user experience on any platform. This app leverages powerful tools and libraries to provide an intuitive, robust, and flexible scheduling solution, making it ideal for users who require efficient event scheduling.
+
+## Screens
+
+
+
+## Features
+
+- **Advanced Event Scheduling**: Schedule, edit, and manage events effortlessly with a user-friendly interface.
+- **Categorise Events**: Categorise events into different types.
+
+## Project Structure
+
+Eventrix is built with **Next.js**, styled with **Tailwind CSS**, and uses **TypeScript** for type safety. The app is structured with modularity and scalability in mind, making it easier to add new features and maintain existing ones.
+
+### Key Directories
+
+- `components/` - Reusable UI components used throughout the application.
+- `data/` - Contains Constants used throughout the application.
+- `store/` - Application-wide state management.
+- `utils/` - Utility functions, including date helpers.
+- `styles/` - Global styling with Tailwind CSS.
+
+## NPM Packages
+
+Eventrix utilizes several npm packages to enhance functionality and developer experience:
+
+- **[date-fns](https://date-fns.org/)** - A modern JavaScript date utility library for date manipulation.
+- **[framer-motion](https://www.framer.com/motion/)** - Animation library for React, enabling smooth transitions and animations.
+- **[react-hook-form](https://react-hook-form.com/)** - A lightweight library for form handling and validation.
+- **[zod](https://zod.dev/)** - TypeScript-first schema validation with static type inference.
+- **[zustand](https://github.com/pmndrs/zustand)** - A small, fast, and scalable state management solution for React applications.
+- **[tailwindcss](https://tailwindcss.com/)** - A utility-first CSS framework for building responsive, fast UIs.
+
+## Getting Started
+
+To run this project locally, ensure you have **Node.js** and **npm** installed. Clone the repository and install the dependencies:
+
+````bash
+git clone https://github.com/yourusername/Eventrix.git
+cd Eventrix
+npm install
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -12,7 +61,7 @@ yarn dev
 pnpm dev
 # or
 bun dev
-```
+````
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

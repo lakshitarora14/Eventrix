@@ -16,7 +16,7 @@ import Categories from '../sidebarCards/Categories'
 import CreateEventForm from '../CreateEventForm'
 
 export function SidebarWrapper() {
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(true)
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
   const [createEventFormVisible, setCreateEventFormVisible] = useState(false)
 
   return (
