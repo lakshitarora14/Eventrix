@@ -40,22 +40,24 @@ const UserCard = () => {
           <p className='text-xs font-extralight'>Frontend Developer</p>
         </div>
       </div>
-      <Popover>
-        <PopoverTrigger asChild>
-          <button className='relative'>
-            <CalendarIcon className='h-10 w-10 rounded-full p-2 bg-glass-effect-black' />
-            <div className='w-4 h-4 text-xs flex justify-center items-center -top-1 -right-1 absolute rounded-full bg-p-secondary text-neutral-800'>
-              {todayEventsCount}
-            </div>
-          </button>
-        </PopoverTrigger>
-        <PopoverContent
-          className='w-auto p-2 bg-white rounded-md shadow-md'
-          align='start'
-        >
-          <AllEventsOnDay events={todayEvents} />
-        </PopoverContent>
-      </Popover>
+      {todayEventsCount > 0 && (
+        <Popover>
+          <PopoverTrigger asChild>
+            <button className='relative'>
+              <CalendarIcon className='h-10 w-10 rounded-full p-2 bg-glass-effect-black' />
+              <div className='w-4 h-4 text-xs flex justify-center items-center -top-1 -right-1 absolute rounded-full bg-p-secondary text-neutral-800'>
+                {todayEventsCount}
+              </div>
+            </button>
+          </PopoverTrigger>
+          <PopoverContent
+            className='w-auto p-2 bg-white rounded-md shadow-md'
+            align='start'
+          >
+            <AllEventsOnDay events={todayEvents} />
+          </PopoverContent>
+        </Popover>
+      )}
     </div>
   )
 }

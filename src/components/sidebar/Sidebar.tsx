@@ -1,11 +1,10 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { Sidebar, SidebarBody } from './SidebarUI'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/Popover'
 import {
   CalendarIcon,
   PlusCircleIcon,
-  PlusIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
@@ -14,10 +13,16 @@ import CalendarCard from '../sidebarCards/CalendarCard'
 // import UpcomingEvent from '../sidebarCards/UpcomingEvent'
 import Categories from '../sidebarCards/Categories'
 import CreateEventForm from '../CreateEventForm'
+import { useClientMediaQuery } from '@/hooks/useClientMediaQuery'
 
 export function SidebarWrapper() {
+  const isMobile = useClientMediaQuery('(max-width: 600px)')
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
   const [createEventFormVisible, setCreateEventFormVisible] = useState(false)
+
+  useLayoutEffect(() => {
+    setSidebarIsOpen(isMobile ? false : true)
+  }, [isMobile])
 
   return (
     <Sidebar open={sidebarIsOpen} setOpen={setSidebarIsOpen}>
@@ -40,32 +45,11 @@ export function SidebarWrapper() {
                 className='font-medium px-2 flex w-full items-center justify-between'
               >
                 Eventrix
-                <span className='flex items-center gap-4'>
-                  <Popover
-                    // open={createEventFormVisible}
-                    onOpenChange={setCreateEventFormVisible}
-                  >
-                    <PopoverTrigger asChild>
-                      <button
-                        onClick={() => setCreateEventFormVisible(true)}
-                        className='hidden md:flex items-center rounded-lg border border-p-secondary font-light px-3 py-1 text-p-secondary text-sm hover:shadow-[0_0_15px_rgba(139,92,246,0.2)] hover:shadow-purple-400/60'
-                      >
-                        <PlusIcon className='h-4 w-4 mr-1' />
-                        Create
-                      </button>
-                    </PopoverTrigger>
-                    <PopoverContent className=''>
-                      <CreateEventForm
-                        handleClose={setCreateEventFormVisible}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <XMarkIcon
-                    className='h-10 w-10 mr-1 hover:bg-purple-400/40 cursor-pointer rounded-md p-1.5 transition-colors hover:bg-p-secondary/20'
-                    aria-label='Close sidebar'
-                    onClick={() => setSidebarIsOpen(false)}
-                  />
-                </span>
+                <XMarkIcon
+                  className=' h-10 right-2 w-10 mr-1 hover:bg-purple-400/40 cursor-pointer rounded-md p-1.5 transition-colors hover:bg-p-secondary/20'
+                  aria-label='Close sidebar'
+                  onClick={() => setSidebarIsOpen(false)}
+                />
               </motion.span>
             </>
           )}
