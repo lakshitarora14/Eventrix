@@ -8,12 +8,23 @@ Eventrix is a modern, fully responsive event calendar application that simplifie
 
 ## Screens
 
+<img width="1710" alt="Screenshot 2024-10-28 at 9 38 04 AM" src="https://github.com/user-attachments/assets/5ad7a6b5-4e27-4768-8888-a73c118f98d0">
+<img width="1710" alt="Screenshot 2024-10-28 at 9 38 51 AM" src="https://github.com/user-attachments/assets/48506dc9-074f-4a81-9507-f4efe758ff45">
+<img width="1710" alt="Screenshot 2024-10-28 at 9 38 20 AM" src="https://github.com/user-attachments/assets/389894f1-dbbd-4dcd-b670-1f2f098e9b65">
+<img width="1710" alt="Screenshot 2024-10-28 at 9 38 27 AM" src="https://github.com/user-attachments/assets/8fbde6b7-c387-478f-818b-5a9a0611333c">
+<img width="300" alt="Screenshot 2024-10-28 at 9 39 54 AM" src="https://github.com/user-attachments/assets/16603585-dbff-4e88-8ed0-99d34db77e41">
+<img width="300" alt="Screenshot 2024-10-28 at 9 40 19 AM" src="https://github.com/user-attachments/assets/76f7995a-0460-410b-af7b-6a8ba5dc53d8">
+<img width="300" alt="Screenshot 2024-10-28 at 9 40 01 AM" src="https://github.com/user-attachments/assets/8c17d5d9-35ec-4861-a4cc-63785cfbb854">
 
 
 ## Features
 
 - **Advanced Event Scheduling**: Schedule, edit, and manage events effortlessly with a user-friendly interface.
-- **Categorise Events**: Categorise events into different types.
+- **Categorise Events**: Organize events into different categories for better tracking and management.
+- **Advanced State Management**: Ensure smooth and optimized data flow and state updates using **Zustand**, making the app highly consistent and efficient.
+- **Form Validations**: Utilize **React Hook Form** and **Zod** for robust form validations, ensuring accurate data input and an error-free user experience.
+- **Smooth Animations**: Enhance user interaction with elegant and seamless animations powered by **Framer Motion**, adding a dynamic and engaging feel to the app.
+
 
 ## Project Structure
 
